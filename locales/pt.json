@@ -100,5 +100,11 @@
   "Deactivate": "Desativar",
   "Click to activate": "Clique para ativar",
   "Activate": "Ativar",
-  "Encode": "Codificar"
+  "Encode": "Codificar",
+  "Record successfully saved!": "Registro salvo com sucesso!",
+  "Forbidden.": "Proibido.",
+  "Confirmation": "Confirmação",
+  "The changed data will be lost. Do you really want to continue?": "Os dados alterados serão perdidos. Deseja realmente continuar?",
+  "No": "Não",
+  "Yes": "Sim"
 }
