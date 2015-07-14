@@ -37,7 +37,7 @@ module.exports = require('vulpejs')({
   security: {
     routes: [{
       uri: '/**',
-      roles: ['SUPER', 'ADMIN']
+      roles: ['SUPER', 'ADMIN', 'NORMAL']
     }],
     login: {
       skip: []
