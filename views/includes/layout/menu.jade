@@ -8,8 +8,8 @@ if ui.login
 if ui.manager
   include /views/includes/layout/language
   ul.nav.navbar-nav
-    li#dashboard
-      a(href="/")=__('Dashboard')
+    li#index
+      a(href="/")=__('Encode')
     li#manager.dropdown(ng-cloak ng-show="vulpejs.auth.user.is(['SUPER','ADMIN'])")
       a.dropdown-toggle(href="#" data-toggle="dropdown" data-hover="dropdown")=__('Manager')
         b.caret

@@ -1,7 +1,7 @@
 extends /views/layouts/manager
 
 block content
-  .container(ng-controller="#{ui.controller}Controller")
+  div(ng-controller="#{ui.controller}Controller")
     .panel.panel-default(ng-class="{'box-shadow':vulpejs.ui.showing}")
       .panel-heading
         .row
@@ -38,7 +38,9 @@ block content
                   th(width="10%")=__('Status')
                   th(width="20%")=__('Actions')
               tbody
-                tr(dir-paginate-start="item in vulpejs.items|itemsPerPage:10" pagination-id="items")
+                tr.slide-down(ng-cloak ng-if="!vulpejs.items || vulpejs.items.length === 0")
+                  td(colspan="4")=__('Empty')
+                tr.slide-down(dir-paginate-start="item in vulpejs.items|itemsPerPage:10" pagination-id="items")
                   td {{item.job.id}}
                   td {{item.job.input_media_file.url}}
                   td.text-center
@@ -64,7 +66,7 @@ block content
                     a.btn.btn-primary.btn-sm.slide-down(ng-click="vulpejs.cancel(item.job.id)" ng-cloak ng-if="item.job.state!=='finished'" tooltip-append-to-body="true" tooltip-placement="right" tooltip=__('Click to cancel encoding the video'))
                       i.fa.fa-times.fa-fw
                       =__('Cancel')
-                tr(dir-paginate-end ng-cloak ng-if="vulpejs.now[item.job.id]")
+                tr.slide-down(dir-paginate-end ng-cloak ng-if="vulpejs.now[item.job.id]")
                   td.text-center(colspan="4")
                     video.img-thumbnail.preview(ng-src="{{vulpejs.trustSrc(item.job.output_media_files[0].url)}}" controls="true")
             .text-center
