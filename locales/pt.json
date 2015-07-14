@@ -50,7 +50,7 @@
   "Add": "Adicionar",
   "List": "Lista",
   "Send": "Enviar",
-  "Add Video": "Adicionar Video",
+  "Add Video": "Adicionar Vídeo",
   "Video List": "Lista de Vídeos",
   "Status": "Status",
   "Click to send the video to encode": "Clique para enviar o vídeo para codificar",
@@ -106,5 +106,6 @@
   "Confirmation": "Confirmação",
   "The changed data will be lost. Do you really want to continue?": "Os dados alterados serão perdidos. Deseja realmente continuar?",
   "No": "Não",
-  "Yes": "Sim"
+  "Yes": "Sim",
+  "Video": "Vídeo"
 }
