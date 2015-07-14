@@ -2,13 +2,11 @@ extends /views/layouts/manager
 
 block content
   div(ng-controller="#{ui.controller}Controller")
-    .panel.panel-default(ng-class="{'box-shadow':vulpejs.ui.showing}")
+    .panel.panel-default
       .panel-heading
         .row
-          .col-lg-6=__('Add Video')
-          .col-lg-6
-            include /views/includes/main/view-actions
-      .panel-body.slide-down(ng-cloak ng-show="vulpejs.ui.showing")
+          .col-lg-12=__('Add Video')
+      .panel-body.slide-down
         .row
           .col-lg-12
             label(for="url")=__('URL')
@@ -18,19 +16,14 @@ block content
                 a.btn.btn-primary(ng-click="vulpejs.send()" tooltip-append-to-body="true" tooltip=__('Click to send the video to encode'))
                   i.fa.fa-send.fa-fw
                   =__('Send')
-                a.btn.btn-primary(ng-click="vulpejs.cancel()" tooltip-append-to-body="true" tooltip=__('Click to cancel'))
-                  i.fa.fa-times.fa-fw
-                  =__('Cancel')
-    .panel.panel-default(ng-class="{'box-shadow':!vulpejs.ui.showing}")
+    .panel.panel-default
       .panel-heading
         .row
-          .col-lg-6=__('Video List')
-          .col-lg-6
-            include /views/includes/select/view-actions
-      .panel-body.slide-down(ng-cloak ng-show="!vulpejs.ui.showing")
+          .col-lg-12=__('Video List')
+      .panel-body.slide-down
         .row
           .col-lg-12
-            table.table.table-bordered.table-stripered
+            table.table.table-bordered.table-striped.table-hover
               thead
                 tr
                   th(width="10%") #

@@ -28,25 +28,14 @@ vulpe.ng.app.controller('IndexController', ['$rootScope', '$scope', 'VulpeJS', f
     }, 100);
   };
 
-  vulpejs.model.create = function() {
-    vulpejs.ui.showing = true;
-    vulpejs.item.url = '';
-    focus();
-  };
-
   vulpejs.cancel = function(id) {
-    if (id) {
-      vulpejs.http.get({
-        url: '/job/cancel/' + id,
-        callback: function(data) {
-          vulpejs.jobs();
-          vulpejs.message.success('Video encoding successfully cancelled!');
-        }
-      });
-    } else {
-      vulpejs.ui.showing = false;
-      vulpejs.item.url = '';
-    }
+    vulpejs.http.get({
+      url: '/job/cancel/' + id,
+      callback: function(data) {
+        vulpejs.jobs();
+        vulpejs.message.success('Video encoding successfully cancelled!');
+      }
+    });
   };
 
   vulpejs.progress = function(id) {
@@ -84,7 +73,6 @@ vulpe.ng.app.controller('IndexController', ['$rootScope', '$scope', 'VulpeJS', f
           success: function(data) {
             vulpejs.item.url = '';
             vulpejs.jobs();
-            vulpejs.ui.showing = false;
             vulpejs.message.success('Video successfully sent to encode!');
           },
           error: function(error) {
@@ -101,5 +89,6 @@ vulpe.ng.app.controller('IndexController', ['$rootScope', '$scope', 'VulpeJS', f
   vulpejs.on.ready(function() {
     vulpejs.ui.active('index', true);
     vulpejs.jobs();
+    focus();
   });
 }]);
