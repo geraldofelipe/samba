@@ -14,13 +14,28 @@ router.get('/', function(req, res) {
   });
 });
 
+router.post('/job', function(req, res) {
+  client.Job.create({
+    input: req.body.url
+  }, function(err, data) {
+    if (err) {
+      res.status(500).json({
+        error: err
+      });
+      return;
+    }
+    res.json(data);
+  });
+});
+
 router.get('/job/create/:url', function(req, res) {
   client.Job.create({
-    // input: 'http://s3.amazonaws.com/zencodertesting/test.mov'
     input: req.params.url
   }, function(err, data) {
     if (err) {
-      console.log(err);
+      res.status(500).json({
+        error: err
+      });
       return;
     }
     res.json(data);
@@ -30,22 +45,53 @@ router.get('/job/create/:url', function(req, res) {
 router.get('/jobs', function(req, res) {
   client.Job.list(function(err, data) {
     if (err) {
-      console.log(err);
+      res.status(500).json({
+        error: err
+      });
       return;
     }
     res.json(data);
   });
 });
+
+router.get('/jobs/page/:page', function(req, res) {
+  client.Job.list({
+    per_page: 5,
+    page: req.params.page || 1
+  }, function(err, data) {
+    if (err) {
+      res.status(500).json({
+        error: err
+      });
+      return;
+    }
+    res.json(data);
+  });
+});
+
 
 router.get('/job/cancel/:id', function(req, res) {
   client.Job.cancel(req.params.id, function(err, data) {
     if (err) {
-      console.log(err);
+      res.status(500).json({
+        error: err
+      });
       return;
     }
     res.json(data);
   });
 });
 
+router.get('/job/progress/:id', function(req, res) {
+  client.Job.progress(req.params.id, function(err, data) {
+    if (err) {
+      res.status(500).json({
+        error: err
+      });
+      return;
+    }
+    res.json(data);
+  });
+});
 
 module.exports = router;
