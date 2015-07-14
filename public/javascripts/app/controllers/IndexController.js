@@ -43,12 +43,16 @@ vulpe.ng.app.controller('IndexController', ['$rootScope', '$scope', 'VulpeJS', f
     });
   };
 
-  vulpejs.model.create = function() {
-    vulpejs.ui.showing = true;
-    vulpejs.item.url = '';
+  var focus = function() {
     vulpejs.timeout.add(function() {
       vulpejs.ui.focus('url');
     }, 100);
+  };
+
+  vulpejs.model.create = function() {
+    vulpejs.ui.showing = true;
+    vulpejs.item.url = '';
+    focus();
   };
 
   vulpejs.cancel = function(id) {
@@ -91,6 +95,7 @@ vulpe.ng.app.controller('IndexController', ['$rootScope', '$scope', 'VulpeJS', f
     if (vulpejs.item.url && vulpejs.item.url.length > 0) {
       if (!re_weburl.test(vulpejs.item.url)) {
         vulpejs.message.error('Please, enter a valid URL.');
+        focus();
         return;
       }
       vulpejs.http.post({
@@ -110,13 +115,12 @@ vulpe.ng.app.controller('IndexController', ['$rootScope', '$scope', 'VulpeJS', f
       });
     } else {
       vulpejs.message.info('Please, enter the video URL to encode!');
-      vulpejs.timeout.add(function() {
-        vulpejs.ui.focus('url');
-      }, 100);
+      focus();
     }
   };
 
   vulpejs.on.ready(function() {
+    vulpejs.ui.active('index', true);
     vulpejs.jobs();
   });
 }]);
