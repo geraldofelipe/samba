@@ -1,0 +1,11 @@
+extends /views/layouts/site
+
+block content
+  .container(ng-controller="#{ui.controller}Controller")
+    table.table.table-bordered.table-stripered
+      thead
+        tr
+          th=__('Name')
+      tbody
+        tr(ng-repeat="item in vulpejs.items")
+          td {{item.job.input_media_file.url}}
