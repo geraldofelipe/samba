@@ -1,11 +1,71 @@
-extends /views/layouts/site
+extends /views/layouts/manager
 
 block content
   .container(ng-controller="#{ui.controller}Controller")
-    table.table.table-bordered.table-stripered
-      thead
-        tr
-          th=__('Name')
-      tbody
-        tr(ng-repeat="item in vulpejs.items")
-          td {{item.job.input_media_file.url}}
+    .panel.panel-default(ng-class="{'box-shadow':vulpejs.ui.showing}")
+      .panel-heading
+        .row
+          .col-lg-6=__('Add Video')
+          .col-lg-6
+            include /views/includes/main/view-actions
+      .panel-body.slide-down(ng-cloak ng-show="vulpejs.ui.showing")
+        .row
+          .col-lg-12
+            label(for="url")=__('URL')
+            .input-group
+              input#url.form-control(name="url" ng-model="vulpejs.item.url" placeholder=__('Video URL to be encoded'))
+              .input-group-btn
+                a.btn.btn-primary(ng-click="vulpejs.send()" tooltip-append-to-body="true" tooltip=__('Click to send the video to encode'))
+                  i.fa.fa-send.fa-fw
+                  =__('Send')
+                a.btn.btn-primary(ng-click="vulpejs.cancel()" tooltip-append-to-body="true" tooltip=__('Click to cancel'))
+                  i.fa.fa-times.fa-fw
+                  =__('Cancel')
+    .panel.panel-default(ng-class="{'box-shadow':!vulpejs.ui.showing}")
+      .panel-heading
+        .row
+          .col-lg-6=__('Video List')
+          .col-lg-6
+            include /views/includes/select/view-actions
+      .panel-body.slide-down(ng-cloak ng-show="!vulpejs.ui.showing")
+        .row
+          .col-lg-12
+            table.table.table-bordered.table-stripered
+              thead
+                tr
+                  th(width="10%") #
+                  th(width="60%")=__('URL')
+                  th(width="10%")=__('Status')
+                  th(width="20%")=__('Actions')
+              tbody
+                tr(dir-paginate-start="item in vulpejs.items|itemsPerPage:10" pagination-id="items")
+                  td {{item.job.id}}
+                  td {{item.job.input_media_file.url}}
+                  td.text-center
+                    span(ng-switch="item.job.state")
+                      span.label.label-default(ng-switch-when="finished" tooltip-append-to-body="true" tooltip=__('Finished!'))
+                        i.fa.fa-check.fa-fw
+                        =__('Ok')
+                      span.label.label-default(ng-switch-default tooltip-append-to-body="true" tooltip=__('Encoding...'))
+                        i.fa.fa-flask.fa-fw
+                        =__('Encoding...')
+                  td
+                    .btn-group.slide-down(ng-cloak ng-if="item.job.state==='finished'")
+                      a.btn.btn-primary.btn-sm(ng-click="vulpejs.now[item.job.id]=!vulpejs.now[item.job.id]" tooltip-append-to-body="true" tooltip-placement="right" tooltip=__('Click to view the video'))
+                        i.fa.fa-play.fa-fw
+                        =__('View')
+                      a.btn.btn-primary.btn-sm.dropdown-toggle(href="#" data-toggle="dropdown" data-hover="dropdown")
+                        b.caret
+                      ul.dropdown-menu
+                        li
+                          a(href="{{vulpejs.trustSrc(item.job.output_media_files[0].url)}}" target="_blank" tooltip-placement="right" tooltip-append-to-body="true" tooltip=__('Clique to download the video'))
+                            i.fa.fa-download.fa-fw
+                            =__('Download')
+                    a.btn.btn-primary.btn-sm.slide-down(ng-click="vulpejs.cancel(item.job.id)" ng-cloak ng-if="item.job.state!=='finished'" tooltip-append-to-body="true" tooltip-placement="right" tooltip=__('Click to cancel encoding the video'))
+                      i.fa.fa-times.fa-fw
+                      =__('Cancel')
+                tr(dir-paginate-end ng-cloak ng-if="vulpejs.now[item.job.id]")
+                  td.text-center(colspan="4")
+                    video.img-thumbnail.preview(ng-src="{{vulpejs.trustSrc(item.job.output_media_files[0].url)}}" controls="true")
+            .text-center
+              dir-pagination-controls(boundary-links="true" on-page-change="" template-url="/pagination/template" pagination-id="items")
