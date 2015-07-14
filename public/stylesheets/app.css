@@ -157,6 +157,9 @@ div.banner {
     width: 1108px;
   }
 }
+.preview {
+  width: 400px;
+}
 .preview img {
   width: 99px;
 }
