@@ -40,7 +40,7 @@ block content
               tbody
                 tr.slide-down(ng-cloak ng-if="!vulpejs.items || vulpejs.items.length === 0")
                   td(colspan="4")=__('Empty')
-                tr.slide-down(dir-paginate-start="item in vulpejs.items|itemsPerPage:10" pagination-id="items")
+                tr.slide-down(dir-paginate-start="item in vulpejs.items|itemsPerPage:5" pagination-id="items")
                   td {{item.job.id}}
                   td {{item.job.input_media_file.url}}
                   td.text-center
