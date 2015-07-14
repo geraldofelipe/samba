@@ -13,12 +13,10 @@ module.exports = require('vulpejs')({
   },
   database: {
     development: {
-      host: 'ds047722.mongolab.com',
-      port: 47722,
-      name: 'heroku_lrwkp2rq',
+      host: 'activethread.com.br',
+      name: 'samba',
       auth: {
-        source: 'heroku_lrwkp2rq',
-        user: 'testappsamba',
+        user: 'admin',
         pass: 'q1w2e3r4'
       }
     }
@@ -26,13 +24,11 @@ module.exports = require('vulpejs')({
   session: {
     mongo: {
       development: {
-        host: 'ds047722.mongolab.com',
-        port: 47722,
-        db: 'heroku_lrwkp2rq',
+        host: 'activethread.com.br',
+        db: 'express',
         collection: 'session',
         auth: {
-          source: 'heroku_lrwkp2rq',
-          user: 'testappsamba',
+          user: 'admin',
           pass: 'q1w2e3r4'
         }
       }
