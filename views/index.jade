@@ -27,7 +27,7 @@ block content
               thead
                 tr
                   th(width="10%") #
-                  th(width="60%")=__('URL')
+                  th(width="60%")=__('Name')
                   th(width="10%")=__('Status')
                   th(width="20%")=__('Actions')
               tbody
@@ -35,31 +35,31 @@ block content
                   td(colspan="4")=__('Empty')
                 tr.slide-down(dir-paginate-start="item in vulpejs.items|itemsPerPage:5" pagination-id="items")
                   td {{item.job.id}}
-                  td {{item.job.input_media_file.url}}
+                  td {{item.job.input_media_file.url.split('/').pop()}}
                   td.text-center
                     span(ng-cloak ng-switch="item.job.state")
-                      span.label.label-success(ng-switch-when="finished" tooltip-append-to-body="true" tooltip=__('Finished!'))
+                      span.label.label-success(ng-switch-when="finished" tooltip-append-to-body="true" tooltip-placement="left" tooltip=__('Finished!'))
                         i.fa.fa-check.fa-fw
-                      span.label.label-warning(ng-switch-when="cancelled" tooltip-append-to-body="true" tooltip=__('Canceled!'))
+                      span.label.label-warning(ng-switch-when="cancelled" tooltip-append-to-body="true" tooltip-placement="left" tooltip=__('Canceled!'))
                         i.fa.fa-times.fa-fw
-                      span.label.label-danger(ng-switch-when="failed" tooltip-append-to-body="true" tooltip=__('Failed!'))
+                      span.label.label-danger(ng-switch-when="failed" tooltip-append-to-body="true" tooltip-placement="left" tooltip=__('Failed!'))
                         i.fa.fa-exclamation-triangle.fa-fw
-                      span.label.label-default(ng-switch-when="waiting" tooltip-append-to-body="true" tooltip=__('Waiting...'))
+                      span.label.label-default(ng-switch-when="waiting" tooltip-append-to-body="true" tooltip-placement="left" tooltip=__('Waiting...'))
                         i.fa.fa-stop.fa-fw
-                      span.label.label-info(ng-switch-when="pending" tooltip-append-to-body="true" tooltip=__('Pending...'))
+                      span.label.label-info(ng-switch-when="pending" tooltip-append-to-body="true" tooltip-placement="left" tooltip=__('Pending...'))
                         i.fa.fa-pause.fa-fw
-                      span.label.label-primary(ng-switch-when="processing" tooltip-append-to-body="true" tooltip=__('Encoding...'))
+                      span.label.label-primary(ng-switch-when="processing" tooltip-append-to-body="true" tooltip-placement="left" tooltip=__('Encoding...'))
                         i.fa.fa-flask.fa-fw
                   td
                     .btn-group.slide-down(ng-cloak ng-if="item.job.state==='finished'")
-                      a.btn.btn-primary.btn-sm(ng-click="vulpejs.now[item.job.id]=!vulpejs.now[item.job.id]" tooltip-append-to-body="true" tooltip-placement="right" tooltip=__('Click to view the video'))
+                      a.btn.btn-primary.btn-sm(ng-click="vulpejs.now[item.job.id]=!vulpejs.now[item.job.id]" tooltip-append-to-body="true" tooltip-placement="left" tooltip=__('Click to view the video'))
                         i.fa.fa-play.fa-fw
                         =__('View')
-                      a.btn.btn-primary.btn-sm.dropdown-toggle(href="#" data-toggle="dropdown" data-hover="dropdown")
+                      a.btn.btn-primary.btn-sm.dropdown-toggle(href="#" data-toggle="dropdown" data-hover="dropdown" tooltip-placement="right" tooltip-append-to-body="true" tooltip=__('Click to expand/collapse'))
                         b.caret
                       ul.dropdown-menu
                         li
-                          a(href="{{vulpejs.trustSrc(item.job.output_media_files[0].url)}}" target="_blank" tooltip-placement="right" tooltip-append-to-body="true" tooltip=__('Clique to download the video'))
+                          a(href="{{vulpejs.trustSrc(item.job.output_media_files[0].url)}}" target="_blank" tooltip-placement="right" tooltip-append-to-body="true" tooltip=__('Click to download the video'))
                             i.fa.fa-download.fa-fw
                             =__('Download')
                     a.btn.btn-primary.btn-sm.slide-down(ng-click="vulpejs.cancel(item.job.id)" ng-cloak ng-if="['finished','failed','cancelled'].indexOf(item.job.state)===-1" tooltip-append-to-body="true" tooltip-placement="right" tooltip=__('Click to cancel encoding the video'))
