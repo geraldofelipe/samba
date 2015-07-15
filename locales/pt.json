@@ -116,5 +116,5 @@
   "Please, enter a video with one of the following formats: (dv|webm|mkv|flv|vob|ogv|ogg|drc|mng|avi|mov|qt|wmv|yuv|rm|rmvb|asf|mp4|m4p|m4v|mpg|mp2|mpeg|mpe|mpv|mpg|mpeg|m2v|m4v|svi|3gp|3g2|mxf|roq|nsv)": "Por favor, informe um vídeo com uma das seguintes formatos: (dv|webm|mkv|flv|vob|ogv|ogg|drc|mng|avi|mov|qt|wmv|yuv|rm|rmvb|asf|mp4|m4p|m4v|mpg|mp2|mpeg|mpe|mpv|mpg|mpeg|m2v|m4v|svi|3gp|3g2|mxf|roq|nsv)",
   "Video encoding successfully cancelled!": "Codificação do vídeo foi cancelada com sucesso!",
   "Do you really want to cancel?": "Deseja realmente cancelar?",
-  "Do you really want to delete?": "Deseja realmente excluir?",
+  "Do you really want to delete?": "Deseja realmente excluir?"
 }
