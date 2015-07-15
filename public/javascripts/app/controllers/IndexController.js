@@ -76,8 +76,7 @@ vulpe.ng.app.controller('IndexController', ['$rootScope', '$scope', 'VulpeJS', f
         focus();
         return;
       }
-      var parts = vulpejs.item.url.split('/');
-      var file = parts.pop().toLowerCase();
+      var file = vulpejs.item.url.split('/').pop().toLowerCase();
       if (!regex.allowedExtensions.test(file)) {
         vulpejs.message.error('Please, enter a video with one of the following formats: ' + encode.formats);
         focus();
