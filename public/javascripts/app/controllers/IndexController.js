@@ -2,6 +2,16 @@ vulpe.ng.app.controller('IndexController', ['$rootScope', '$scope', 'VulpeJS', f
 
   var vulpejs = new VulpeJS().init($scope);
 
+  var encode = {
+    formats: "(dv|webm|mkv|flv|vob|ogv|ogg|drc|mng|avi|mov|qt|wmv|yuv|rm|rmvb|asf|mp4|m4p|m4v|mpg|mp2|mpeg|mpe|mpv|mpg|mpeg|m2v|m4v|svi|3gp|3g2|mxf|roq|nsv)",
+    status: {
+      all: ['waiting', 'pending', 'processing', 'finished', 'failed', 'cancelled'],
+      end: ['finished', 'failed', 'cancelled']
+    }
+  }
+  var regex = {
+    allowedExtensions: /\.(dv|webm|mkv|flv|vob|ogv|ogg|drc|mng|avi|mov|qt|wmv|yuv|rm|rmvb|asf|mp4|m4p|m4v|mpg|mp2|mpeg|mpe|mpv|mpg|mpeg|m2v|m4v|svi|3gp|3g2|mxf|roq|nsv)/i
+  };
   vulpejs.timeout.cancel();
 
   vulpejs.item = {
@@ -46,10 +56,10 @@ vulpe.ng.app.controller('IndexController', ['$rootScope', '$scope', 'VulpeJS', f
           var item = vulpejs.items[i];
           if (item.job.id === id) {
             item.job.state = data.state;
-            if (data.state !== 'finished') {
+            if (encode.status.end.indexOf(data.state) === -1) {
               vulpejs.timeout.add(function() {
                 vulpejs.progress(id);
-              }, 1000);
+              }, 3000);
             }
             break;
           }
@@ -63,6 +73,13 @@ vulpe.ng.app.controller('IndexController', ['$rootScope', '$scope', 'VulpeJS', f
     if (vulpejs.item.url && vulpejs.item.url.length > 0) {
       if (!vulpe.utils.regex.weburl.test(vulpejs.item.url)) {
         vulpejs.message.error('Please, enter a valid URL.');
+        focus();
+        return;
+      }
+      var parts = vulpejs.item.url.split('/');
+      var file = parts.pop().toLowerCase();
+      if (!regex.allowedExtensions.test(file)) {
+        vulpejs.message.error('Please, enter a video with one of the following formats: ' + encode.formats);
         focus();
         return;
       }
