@@ -39,11 +39,17 @@ vulpe.ng.app.controller('IndexController', ['$rootScope', '$scope', 'VulpeJS', f
   };
 
   vulpejs.cancel = function(id) {
-    vulpejs.http.get({
-      url: '/job/cancel/' + id,
-      callback: function(data) {
-        vulpejs.jobs();
-        vulpejs.message.success('Video encoding successfully cancelled!');
+    vulpejs.dialog.confirm({
+      message: 'Do you really want to cancel?',
+      callback: function() {
+        vulpejs.message.clean();
+        vulpejs.http.get({
+          url: '/job/cancel/' + id,
+          callback: function(data) {
+            vulpejs.jobs();
+            vulpejs.message.success('Video encoding successfully cancelled!');
+          }
+        });
       }
     });
   };
